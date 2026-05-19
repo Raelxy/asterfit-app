@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<title>Aster Fit App – Protótipo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:#0a0a0a;display:flex;justify-content:center;align-items:flex-start;min-height:100vh;padding:30px 16px;font-family:'Inter',sans-serif;gap:20px;flex-wrap:wrap;}
+  .screen-label{color:#666;font-size:11px;text-align:center;margin-bottom:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;}
+  .phone{width:370px;min-height:800px;background:#111;border-radius:40px;overflow:hidden;border:2px solid #1e1e1e;box-shadow:0 30px 80px rgba(0,0,0,0.9);display:flex;flex-direction:column;}
+  /* STATUS */
+  .sb{background:#111;padding:14px 24px 8px;display:flex;justify-content:space-between;}
+  .sb .t{color:#fff;font-size:15px;font-weight:600;}
+  .sb .ic{color:#fff;font-size:12px;}
+  /* HEADER */
+  .hd{padding:14px 20px;display:flex;justify-content:space-between;align-items:center;}
+  .lg{display:flex;align-items:center;gap:10px;}
+  .lgc{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00d4ff,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;}
+  .lgt{color:#fff;font-size:18px;font-weight:700;}
+  .lgt span{color:#00d4ff;}
+  .av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00d4ff,#7c3aed);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:700;}
+  /* HERO */
+  .hero{margin:0 18px 18px;background:linear-gradient(135deg,#7c3aed,#0891b2);border-radius:20px;padding:20px;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-20px;right:-20px;width:100px;height:100px;background:rgba(255,255,255,0.07);border-radius:50%;}
+  .hbadge{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.18);border-radius:20px;padding:4px 10px;color:#fff;font-size:10px;font-weight:700;}
+  .hg{color:rgba(255,255,255,0.8);font-size:12px;margin-bottom:3px;}
+  .hn{color:#fff;font-size:19px;font-weight:700;margin-bottom:16px;}
+  .hs{display:flex;gap:12px;}
+  .hst{background:rgba(255,255,255,0.15);border-radius:12px;padding:9px 12px;text-align:center;backdrop-filter:blur(10px);}
+  .hv{color:#fff;font-size:17px;font-weight:800;}
+  .hl{color:rgba(255,255,255,0.7);font-size:9px;font-weight:500;margin-top:2px;}
+  /* QUICK */
+  .qt{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:0 18px;margin-bottom:20px;}
+  .qi{background:#1a1a1a;border-radius:14px;padding:12px 6px;text-align:center;border:1px solid #222;}
+  .qi .ico{font-size:20px;margin-bottom:5px;}
+  .qi .lbl{color:#999;font-size:9px;font-weight:600;}
+  /* SECTION */
+  .stit{color:#fff;font-size:15px;font-weight:700;padding:0 18px;margin-bottom:12px;}
+  /* AULAS */
+  .al{padding:0 18px;display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+  .ac{background:#1a1a1a;border-radius:15px;padding:14px;display:flex;align-items:center;gap:12px;border:1px solid #222;}
+  .ac.dest{border-color:#7c3aed;background:linear-gradient(135deg,#160a2e,#0a152e);}
+  .atb{border-radius:10px;padding:7px 10px;text-align:center;min-width:50px;}
+  .atb.p{background:#7c3aed;}
+  .atb.c{background:#0891b2;}
+  .atb.g{background:#059669;}
+  .ah{color:#fff;font-size:12px;font-weight:700;}
+  .ap{color:rgba(255,255,255,0.6);font-size:8px;}
+  .ai{flex:1;}
+  .an{color:#fff;font-size:13px;font-weight:600;margin-bottom:2px;}
+  .apr{color:#777;font-size:11px;margin-bottom:5px;}
+  .am{display:flex;gap:6px;}
+  .tg{background:#252525;border-radius:5px;padding:2px 7px;color:#999;font-size:9px;font-weight:500;}
+  .tg.gn{background:#052e16;color:#4ade80;}
+  .tg.yw{background:#2d1f00;color:#fbbf24;}
+  .tg.rd{background:#2d0000;color:#f87171;}
+  .abtn{width:33px;height:33px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;flex-shrink:0;}
+  .abtn.p{background:#7c3aed;}
+  .abtn.c{background:#0891b2;}
+  .abtn.g{background:#059669;}
+  /* GYMPASS BANNER */
+  .gpb{margin:0 18px 20px;background:linear-gradient(135deg,#161630,#22223a);border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;border:1px solid #35356a;}
+  .gpi{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+  .gpt{color:#fff;font-size:13px;font-weight:700;}
+  .gps{color:#777;font-size:10px;margin-top:2px;}
+  .gpbg{background:#6366f1;border-radius:7px;padding:4px 9px;color:#fff;font-size:10px;font-weight:700;}
+  /* BOTTOM NAV */
+  .bn{margin-top:auto;background:#111;border-top:1px solid #1a1a1a;padding:12px 0 18px;display:flex;justify-content:space-around;}
+  .ni{display:flex;flex-direction:column;align-items:center;gap:3px;}
+  .ni .ic{font-size:20px;}
+  .ni .lb{color:#444;font-size:8px;font-weight:600;}
+  .ni.act .lb{color:#7c3aed;}
+  .nd{width:4px;height:4px;border-radius:50%;background:#7c3aed;margin:0 auto;}
+  /* ---- TELA 2 ---- */
+  .agh{padding:18px 18px 12px;}
+  .agbk{color:#777;font-size:12px;margin-bottom:10px;}
+  .agt{color:#fff;font-size:21px;font-weight:800;}
+  .ags{color:#777;font-size:12px;margin-top:3px;}
+  .ftabs{display:flex;gap:7px;padding:0 18px;margin-bottom:16px;overflow-x:auto;}
+  .ftabs::-webkit-scrollbar{display:none;}
+  .ft{background:#1a1a1a;border:1px solid #222;border-radius:18px;padding:6px 14px;color:#777;font-size:11px;font-weight:600;white-space:nowrap;}
+  .ft.act{background:#7c3aed;border-color:#7c3aed;color:#fff;}
+  .days{display:flex;gap:7px;padding:0 18px;margin-bottom:16px;overflow-x:auto;}
+  .days::-webkit-scrollbar{display:none;}
+  .dy{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:44px;}
+  .dn{color:#666;font-size:9px;font-weight:700;text-transform:uppercase;}
+  .dd{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#666;font-size:15px;font-weight:700;}
+  .dy.act .dd{background:#7c3aed;color:#fff;}
+  .dy.act .dn{color:#7c3aed;}
+  .aglist{padding:0 18px;display:flex;flex-direction:column;gap:10px;}
+  .agc{background:#1a1a1a;border-radius:16px;padding:14px;border:1px solid #222;}
+  .agct{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+  .agcn{color:#fff;font-size:15px;font-weight:700;}
+  .agcp{color:#777;font-size:11px;margin-top:2px;}
+  .agbg{border-radius:18px;padding:4px 10px;font-size:10px;font-weight:700;}
+  .agbg.vg{background:#052e16;color:#4ade80;}
+  .agbg.pw{background:#2d1f00;color:#fbbf24;}
+  .agbg.lt{background:#2d0000;color:#f87171;}
+  .agci{display:flex;gap:12px;margin-bottom:12px;}
+  .agii{display:flex;align-items:center;gap:5px;}
+  .agii span{color:#777;font-size:11px;}
+  .agcf{display:flex;justify-content:space-between;align-items:center;}
+  .cpts{display:flex;gap:5px;}
+  .ct{background:#1e1e1e;border-radius:5px;padding:2px 7px;color:#999;font-size:9px;font-weight:700;}
+  .ct.gp{background:#15153a;color:#a78bfa;}
+  .ct.tp{background:#152515;color:#4ade80;}
+  .agb{background:#7c3aed;border-radius:9px;padding:7px 14px;color:#fff;font-size:12px;font-weight:700;border:none;}
+  .agb.out{background:transparent;border:1px solid #7c3aed;color:#7c3aed;}
+  /* ---- TELA 3 ---- */
+  .cb{padding:18px;flex:1;display:flex;flex-direction:column;}
+  .cicon{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#00d4ff);display:flex;align-items:center;justify-content:center;font-size:34px;margin:16px auto 14px;}
+  .ctit{text-align:center;color:#fff;font-size:20px;font-weight:800;margin-bottom:6px;}
+  .csub{text-align:center;color:#777;font-size:13px;margin-bottom:22px;line-height:1.5;}
+  .ccard{background:#1a1a1a;border-radius:16px;padding:16px;border:1px solid #222;margin-bottom:14px;}
+  .crow{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid #1e1e1e;}
+  .crow:last-child{border:none;}
+  .clb{color:#777;font-size:12px;}
+  .cvl{color:#fff;font-size:12px;font-weight:600;}
+  .qrb{background:#1a1a1a;border-radius:16px;padding:18px;border:1px solid #222;text-align:center;margin-bottom:14px;}
+  .qrt{color:#777;font-size:11px;margin-bottom:10px;font-weight:600;}
+  .qri{width:90px;height:90px;background:#fff;border-radius:10px;margin:0 auto;display:flex;align-items:center;justify-content:center;font-size:52px;}
+  .qrh{color:#555;font-size:9px;margin-top:7px;}
+  .cacts{display:flex;gap:8px;margin-top:auto;}
+  .cbtn{flex:1;padding:13px;border-radius:12px;font-size:13px;font-weight:700;text-align:center;}
+  .cbtn.pr{background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;border:none;}
+  .cbtn.sc{background:#1a1a1a;color:#777;border:1px solid #222;}
+  .wrap{display:flex;flex-direction:column;align-items:center;}
+</style>
+</head>
+<body>
+
+<!-- TELA 1 -->
+<div class="wrap">
+  <div class="screen-label">🏠 Tela Inicial</div>
+  <div class="phone">
+    <div class="sb"><span class="t">9:41</span><span class="ic">📶 🔋</span></div>
+    <div class="hd">
+      <div class="lg"><div class="lgc">A</div><div class="lgt">ASTER<span>FIT</span></div></div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <div style="width:34px;height:34px;border-radius:50%;background:#1a1a1a;display:flex;align-items:center;justify-content:center">🔔</div>
+        <div class="av">JV</div>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="hbadge">✅ Gympass Ativo</div>
+      <div class="hg">Bom dia, João! 👋</div>
+      <div class="hn">Pronto pro treino?</div>
+      <div class="hs">
+        <div class="hst"><div class="hv">12</div><div class="hl">Treinos/mês</div></div>
+        <div class="hst"><div class="hv">8</div><div class="hl">Sequência dias</div></div>
+        <div class="hst"><div class="hv">3</div><div class="hl">Aulas agend.</div></div>
+      </div>
+    </div>
+    <div class="qt">
+      <div class="qi"><div class="ico">📅</div><div class="lbl">Agendar Aula</div></div>
+      <div class="qi"><div class="ico">💪</div><div class="lbl">Meu Plano</div></div>
+      <div class="qi"><div class="ico">📊</div><div class="lbl">Evolução</div></div>
+      <div class="qi"><div class="ico">🏪</div><div class="lbl">Loja Aster</div></div>
+    </div>
+    <div class="stit">Aulas de Hoje – Seg, 19 Mai</div>
+    <div class="al">
+      <div class="ac dest">
+        <div class="atb p"><div class="ah">07:00</div><div class="ap">manhã</div></div>
+        <div class="ai"><div class="an">Funcional</div><div class="apr">Prof. Carlos</div><div class="am"><span class="tg gn">✅ Confirmado</span><span class="tg">8 vagas</span></div></div>
+        <div class="abtn p">▶</div>
+      </div>
+      <div class="ac">
+        <div class="atb c"><div class="ah">10:00</div><div class="ap">manhã</div></div>
+        <div class="ai"><div class="an">Gap Step</div><div class="apr">Prof.ª Ana</div><div class="am"><span class="tg yw">⚠ 3 vagas</span><span class="tg">45 min</span></div></div>
+        <div class="abtn c">+</div>
+      </div>
+      <div class="ac">
+        <div class="atb g"><div class="ah">18:30</div><div class="ap">tarde</div></div>
+        <div class="ai"><div class="an">Ritmos</div><div class="apr">Prof.ª Julia</div><div class="am"><span class="tg rd">🔥 Lotado</span><span class="tg">Lista espera</span></div></div>
+        <div class="abtn g">⏳</div>
+      </div>
+    </div>
+    <div class="gpb">
+      <div class="gpi">💳</div>
+      <div style="flex:1"><div class="gpt">Gympass & TotalPass</div><div class="gps">Todas as aulas disponíveis para check-in</div></div>
+      <div class="gpbg">Ativo</div>
+    </div>
+    <div class="bn">
+      <div class="ni act"><div class="ic">🏠</div><div class="lb">Início</div><div class="nd"></div></div>
+      <div class="ni"><div class="ic">📅</div><div class="lb">Aulas</div></div>
+      <div class="ni"><div class="ic">📊</div><div class="lb">Evolução</div></div>
+      <div class="ni"><div class="ic">🏪</div><div class="lb">Loja</div></div>
+      <div class="ni"><div class="ic">👤</div><div class="lb">Perfil</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TELA 2 -->
+<div class="wrap">
+  <div class="screen-label">📅 Agendamento de Aulas</div>
+  <div class="phone">
+    <div class="sb"><span class="t">9:41</span><span class="ic">📶 🔋</span></div>
+    <div class="agh">
+      <div class="agbk">← Voltar</div>
+      <div class="agt">Agendar Aula</div>
+      <div class="ags">Todas as modalidades disponíveis</div>
+    </div>
+    <div class="ftabs">
+      <div class="ft act">Todas</div>
+      <div class="ft">Funcional</div>
+      <div class="ft">Gap Step</div>
+      <div class="ft">Ritmos</div>
+      <div class="ft">Yoga</div>
+      <div class="ft">Cross</div>
+    </div>
+    <div class="days">
+      <div class="dy"><div class="dn">DOM</div><div class="dd">18</div></div>
+      <div class="dy act"><div class="dn">SEG</div><div class="dd">19</div></div>
+      <div class="dy"><div class="dn">TER</div><div class="dd">20</div></div>
+      <div class="dy"><div class="dn">QUA</div><div class="dd">21</div></div>
+      <div class="dy"><div class="dn">QUI</div><div class="dd">22</div></div>
+      <div class="dy"><div class="dn">SEX</div><div class="dd">23</div></div>
+      <div class="dy"><div class="dn">SAB</div><div class="dd">24</div></div>
+    </div>
+    <div class="aglist">
+      <div class="agc">
+        <div class="agct">
+          <div><div class="agcn">Funcional</div><div class="agcp">Prof. Carlos Mendes</div></div>
+          <div class="agbg vg">12 vagas</div>
+        </div>
+        <div class="agci">
+          <div class="agii"><span>🕐</span><span>07:00–08:00</span></div>
+          <div class="agii"><span>👥</span><span>20 max</span></div>
+          <div class="agii"><span>⏱</span><span>60 min</span></div>
+        </div>
+        <div class="agcf">
+          <div class="cpts"><div class="ct gp">Gympass</div><div class="ct tp">TotalPass</div></div>
+          <button class="agb">Agendar</button>
+        </div>
+      </div>
+      <div class="agc" style="border-color:#fbbf2488">
+        <div class="agct">
+          <div><div class="agcn">Gap Step</div><div class="agcp">Prof.ª Ana Paula</div></div>
+          <div class="agbg pw">3 vagas</div>
+        </div>
+        <div class="agci">
+          <div class="agii"><span>🕙</span><span>10:00–10:45</span></div>
+          <div class="agii"><span>👥</span><span>15 max</span></div>
+          <div class="agii"><span>⏱</span><span>45 min</span></div>
+        </div>
+        <div class="agcf">
+          <div class="cpts"><div class="ct gp">Gympass</div><div class="ct tp">TotalPass</div></div>
+          <button class="agb">Agendar</button>
+        </div>
+      </div>
+      <div class="agc" style="border-color:#f8717188;opacity:0.75">
+        <div class="agct">
+          <div><div class="agcn">Ritmos</div><div class="agcp">Prof.ª Julia Torres</div></div>
+          <div class="agbg lt">Lotado</div>
+        </div>
+        <div class="agci">
+          <div class="agii"><span>🕡</span><span>18:30–19:15</span></div>
+          <div class="agii"><span>👥</span><span>15 max</span></div>
+          <div class="agii"><span>⏱</span><span>45 min</span></div>
+        </div>
+        <div class="agcf">
+          <div class="cpts"><div class="ct gp">Gympass</div></div>
+          <button class="agb out">Lista de Espera</button>
+        </div>
+      </div>
+    </div>
+    <div style="height:14px"></div>
+    <div class="bn">
+      <div class="ni"><div class="ic">🏠</div><div class="lb">Início</div></div>
+      <div class="ni act"><div class="ic">📅</div><div class="lb">Aulas</div><div class="nd"></div></div>
+      <div class="ni"><div class="ic">📊</div><div class="lb">Evolução</div></div>
+      <div class="ni"><div class="ic">🏪</div><div class="lb">Loja</div></div>
+      <div class="ni"><div class="ic">👤</div><div class="lb">Perfil</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TELA 3 -->
+<div class="wrap">
+  <div class="screen-label">✅ Confirmação</div>
+  <div class="phone">
+    <div class="sb"><span class="t">9:41</span><span class="ic">📶 🔋</span></div>
+    <div class="cb">
+      <div class="cicon">✅</div>
+      <div class="ctit">Aula Agendada!</div>
+      <div class="csub">Você está confirmado! Apareça com 5 min de antecedência e aproveite o treino 💪</div>
+      <div class="ccard">
+        <div class="crow"><span class="clb">Modalidade</span><span class="cvl">Funcional</span></div>
+        <div class="crow"><span class="clb">Professor</span><span class="cvl">Carlos Mendes</span></div>
+        <div class="crow"><span class="clb">Data</span><span class="cvl">Seg, 19 de Maio</span></div>
+        <div class="crow"><span class="clb">Horário</span><span class="cvl">07:00 – 08:00</span></div>
+        <div class="crow"><span class="clb">Pagamento</span><span class="cvl" style="color:#a78bfa">💳 Gympass</span></div>
+        <div class="crow"><span class="clb">Status</span><span class="cvl" style="color:#4ade80">✅ Confirmado</span></div>
+      </div>
+      <div class="qrb">
+        <div class="qrt">QR Code de Check-in</div>
+        <div class="qri">▣</div>
+        <div class="qrh">Mostre esse código na recepção ao chegar</div>
+      </div>
+      <div class="cacts">
+        <div class="cbtn sc">Cancelar</div>
+        <div class="cbtn pr">Adicionar à Agenda</div>
+      </div>
+    </div>
+    <div class="bn">
+      <div class="ni"><div class="ic">🏠</div><div class="lb">Início</div></div>
+      <div class="ni act"><div class="ic">📅</div><div class="lb">Aulas</div><div class="nd"></div></div>
+      <div class="ni"><div class="ic">📊</div><div class="lb">Evolução</div></div>
+      <div class="ni"><div class="ic">🏪</div><div class="lb">Loja</div></div>
+      <div class="ni"><div class="ic">👤</div><div class="lb">Perfil</div></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
